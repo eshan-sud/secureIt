@@ -1,0 +1,8 @@
+1. New users install and create their metamask accounts using metamask extension
+2. Login to their accounts using metamask (can use the same function from before)
+3. Upload data to IFPS (give the ability to create personal IFPS with a friend circle (I don't really know how they'll know maybe have an in-app chat option which gets refreshed everyday, can be end-to-end in future TODO))
+4, 3rd party companies may register for an account which will be verified by us (the platform, in future we can use AI to sort them)
+5. After 3rd party logs in, they will be able to search for public data and can see metadata only from users (which the users can also set according to themselves)
+6. The 3rd party may offer some amount of ETH coins to the user in exchange for their data access for a particular time period only in the form of a request (a contract will be formed between the user and company for the access of their data)
+7. To this request the user may or may not accept (if they choose to accept, they can set the duration of access, data in access and how much access (Read, write, delete, etc))
+8. The 3rd party will then and only then transfer some the ETH to the user & this audit will be kept in the blockchain on the network of this platform (do I have to setup a personal ethereurm network for this DAPP?)

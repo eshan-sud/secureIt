@@ -35,7 +35,7 @@ export const Home = ({ connectWallet }) => {
           <button
             onClick={() =>
               window.open(
-                "https://github.com/eshan-sud/blockchain-based-storage-platform",
+                "https://github.com/eshan-sud/secureIt",
                 "_blank",
                 "noopener,noreferrer"
               )

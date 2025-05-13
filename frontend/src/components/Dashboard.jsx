@@ -5,10 +5,12 @@ import { Web3Provider } from "@ethersproject/providers";
 import { ethers } from "ethers";
 import MyContractABI from "../abi/MyContractABI.json";
 import { Sidebar } from "./Sidebar";
+import { uploadToIPFS } from "../services/ipfsService";
 
 export const Dashboard = () => {
   const contractAddress = "0x728b5D181069baC9A5FEa09738A6D9Dc0fC543B4";
 
+  const [ipfsHash, setIpfsHash] = useState(null);
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
@@ -76,9 +78,23 @@ export const Dashboard = () => {
     }
   };
 
-  const handleFileUpload = (event) => {
-    const files = event.target.files;
-    console.log(files); // For demo purposes
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = async (e) => {
+      const fileContent = e.target.result;
+      try {
+        const hash = await uploadToIPFS(fileContent);
+        setIpfsHash(hash);
+        alert(`File uploaded successfully! IPFS Hash: ${hash}`);
+      } catch (error) {
+        alert("Failed to upload file to IPFS");
+      }
+    };
+    if (file) {
+      reader.readAsArrayBuffer(file);
+    }
   };
 
   return (
@@ -126,6 +142,7 @@ export const Dashboard = () => {
           >
             Upload File
           </label>
+          {ipfsHash && <p>IPFS Hash: {ipfsHash}</p>}
         </div>
         <p>Connected Account: {account}</p>
         <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>

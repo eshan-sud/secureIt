@@ -15,15 +15,95 @@ This project is a decentralized application designed to securely manage personal
 
 ## Technology Stack
 
-- **Frontend:** React.js for the user interface.
-- **Backend:** Node.js with Express for the server.
-- **Blockchain:** Ethereum with Smart Contracts (using Solidity) and Web3.js for interaction.
+- **Frontend:** React.js, Ethers.js.
+- **Backend:** Node.js, Express.js, Solidity for Smart Contracts.
+- **Storage:** IPFS (Inter-Planetary File System), MongoDB for Metadata.
+- **Blockchain:** Ethereum with Smart Contracts (using Solidity), Web3.js for interaction.
 - **Database:** MongoDB for storing non-sensitive user data.
 - **Wallet Integration:** MetaMask for user authentication and transaction signing.
+- **Payments:** Ether transactions via smart contract.
 
-## Future Scaling
+## TODO --
 
-- **Decentralized Database:** Plan to implement a decentralized database for storing user files and data.
+- [x] Project Setup
+
+  - [x] Initialize project folders:
+    - [x] /client – React.js + Ethers.js
+    - [x] /server – Node.js + Express.js + MongoDB
+    - [x] /contracts – Solidity + Hardhat
+  - [x] Set up package.json workspaces or use separate setups
+  - [x] Install core dependencies (React, Hardhat, Express, MongoDB, IPFS SDK)
+
+- [] Authentication
+
+  - [] Integrate MetaMask in frontend
+  - [] Wallet connection + display address
+  - [] (Optional) Backend nonce-based wallet signature authentication
+  - [] Store 3rd party company logins (MongoDB + JWT-based auth)
+
+- [] IPFS File Upload & Metadata Storage
+
+  - [] Client-side file encryption placeholder (for future E2EE)
+  - [] Upload encrypted file to IPFS (Infura / Pinata / local node)
+  - [] Save IPFS hash + metadata in:
+    - [] MongoDB (files collection)
+    - [] Smart Contract (file hash → owner mapping)
+  - [] Build upload UI:
+    - [] File input + metadata fields (name, tags, group)
+
+- [] Friend & Family Circle Support
+
+  - [] Create backend schema for user groups ("friend & family circles")
+  - [] UI: Friend circle creation & member management
+  - [] Tag files with a group
+  - [] Restrict access to group-only (MongoDB + smart contract logic)
+
+- [] Permission Management
+
+  - [] Smart contract functions:
+    - [] grantAccess(address, fileHash, price, expiry)
+    - [] revokeAccess(address, fileHash)
+    - [] hasAccess(address, fileHash)
+  - [] UI: "Share" or "Set Permission" modal
+    - [] Address input
+    - [] Price (ETH)
+    - [] Expiry time
+    - [] Access type (Read, Write, Delete)
+
+- [] Third-Party Company Access
+  - [] Backend:
+    - [] Company registration endpoint
+    - [] Admin approval route
+  - [] UI for 3rd parties:
+    - [] Company login form
+    - [] Verified dashboard
+- [] Public Data Explorer (3rd Party Portal)
+
+  - [] Public search interface (only metadata visible)
+  - [] Allow 3rd parties to:
+    - [] Filter by category, tag, user-set fields
+    - [] View preview/metadata of file
+    - [] Send access request with ETH offer
+  - [] Smart contract: requestAccess(fileHash, offer)
+
+- [] User Access Approval Flow
+  - [] User sees pending access requests
+  - [] Accept / Reject UI
+  - [] If accepted:
+    - [] Set access type, duration, and ETH cost
+    - [] Smart contract handles:
+      - [] ETH payment
+      - [] Fund split: user % / platform %
+      - [] Grant time-limited access
+    - [] Record all in smart contract + MongoDB
+
+## Future Features (Post-MVP)
+
+- End-to-end file encryption with decryption key shared upon access approval
+- Support for multiple file types
+- Decentralized user profiles (DIDs / ENS)
+- Zero-knowledge proofs for privacy-preserving verification
+- Subscription or one-time access models
 
 ## Getting Started
 
