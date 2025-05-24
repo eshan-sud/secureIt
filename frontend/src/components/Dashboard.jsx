@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from "react";
 import { Web3Provider } from "@ethersproject/providers";
 import { ethers } from "ethers";
+import Cookies from "js-cookie";
+
 import MyContractABI from "../abi/MyContractABI.json";
 import { Sidebar } from "./Sidebar";
 import { uploadToIPFS } from "../services/ipfsService";
 
 export const Dashboard = () => {
-  const contractAddress = "0x728b5D181069baC9A5FEa09738A6D9Dc0fC543B4";
-
   const [ipfsHash, setIpfsHash] = useState(null);
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
@@ -17,28 +17,30 @@ export const Dashboard = () => {
   const [account, setAccount] = useState(null);
   const [data, setData] = useState(""); // Example state to hold contract data
 
+  // const contractAddress = "0x728b5D181069baC9A5FEa09738A6D9Dc0fC543B4";
+
   useEffect(() => {
     const init = async () => {
+      const savedWallet = Cookies.get("wallet");
+      const savedContract = Cookies.get("contractAddress");
+      if (!savedWallet || !savedContract) {
+        // console.error("Missing wallet or contract address in cookies.");
+        return;
+      }
       if (typeof window.ethereum !== "undefined") {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-
         const provider = new Web3Provider(window.ethereum);
-        setProvider(provider);
-
         const signer = provider.getSigner();
-        setSigner(signer);
-
-        const accounts = await provider.listAccounts();
-        setAccount(accounts[0]);
-
         const myContract = new ethers.Contract(
-          contractAddress,
+          savedContract,
           MyContractABI,
           signer
         );
+        setProvider(provider);
+        setSigner(signer);
         setContract(myContract);
+        setAccount(savedWallet);
       } else {
-        console.error("MetaMask is not installed!");
+        // console.error("MetaMask is not installed!");
       }
     };
 

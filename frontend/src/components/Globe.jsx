@@ -23,7 +23,7 @@ function RotatingGlobe() {
 
 export const Globe = () => {
   return (
-    <Canvas style={{ height: "1000px" }}>
+    <Canvas style={{ height: "100vh" }}>
       <ambientLight intensity={1} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <RotatingGlobe />

@@ -36,8 +36,8 @@ This project is a decentralized application designed to securely manage personal
 
 - [] Authentication
 
-  - [] Integrate MetaMask in frontend
-  - [] Wallet connection + display address
+  - [x] Integrate MetaMask in frontend
+  - [x] Wallet connection + display address
   - [] (Optional) Backend nonce-based wallet signature authentication
   - [] Store 3rd party company logins (MongoDB + JWT-based auth)
 

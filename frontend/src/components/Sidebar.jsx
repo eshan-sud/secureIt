@@ -56,7 +56,7 @@ export const Sidebar = () => {
         }`}
         ref={sidebarRef}
       >
-        <div className="flex flex-col justify-between bg-white h-full p-4">
+        <div className="flex flex-col justify-between bg-gray h-full p-4">
           <div className="flex gap-2">
             <button
               ref={buttonRef}
@@ -69,7 +69,7 @@ export const Sidebar = () => {
             </button>
             {isOpen && (
               <span className="text-2xl text-center font-bold text-nowrap">
-                Code Bashers
+                SecureIt
               </span>
             )}
           </div>
@@ -84,6 +84,7 @@ export const Sidebar = () => {
           </ul>
           <ul className="overflow-hidden">
             <li className="flex items-center">
+              {/* TODO -- Add logout functionality to disconnect MataMask account & remove cookies */}
               <button
                 title="Logout"
                 type="button"

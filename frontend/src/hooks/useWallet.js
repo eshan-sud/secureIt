@@ -3,31 +3,57 @@
 import { useState, useEffect } from "react";
 import { Web3Provider } from "@ethersproject/providers";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+
+const COOKIE_DURATION_MINUTES = 30;
 
 const useWallet = () => {
   const [walletAddress, setWalletAddress] = useState(null);
 
   const connectWallet = async () => {
-    if (window.ethereum) {
+    if (typeof window.ethereum !== "undefined") {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
         const provider = new Web3Provider(window.ethereum);
-        const signer = await provider.getSigner();
+        const signer = provider.getSigner();
         const address = await signer.getAddress();
         setWalletAddress(address);
+        Cookies.set("wallet", address, {
+          expires: COOKIE_DURATION_MINUTES / (60 * 24),
+        });
         toast.success("Wallet connected");
       } catch (error) {
-        toast.error("User rejected the request");
-        console.error(error);
+        if (error.code === 4001) {
+          toast.error("Connection request rejected");
+        } else {
+          toast.error("Error connecting wallet");
+          // console.error(error);
+        }
       }
     } else {
-      toast.error("MetaMask not found");
+      // Ask user for permission to install MetaMask
+      const confirmInstall = window.confirm(
+        "MetaMask is not installed. Would you like to install it?"
+      );
+      if (confirmInstall) {
+        window.open(
+          "https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn",
+          "_blank"
+        );
+      }
     }
   };
 
   useEffect(() => {
+    const savedWallet = Cookies.get("wallet");
+    if (savedWallet) {
+      setWalletAddress(savedWallet);
+    }
     if (window.ethereum) {
-      window.ethereum.on("accountsChanged", () => window.location.reload());
+      window.ethereum.on("accountsChanged", () => {
+        Cookies.remove("wallet");
+        window.location.reload();
+      });
     }
   }, []);
 
