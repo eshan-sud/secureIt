@@ -14,5 +14,8 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "ipfs": "^0.66.1"
   }
 }

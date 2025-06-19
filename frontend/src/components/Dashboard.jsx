@@ -14,31 +14,29 @@ export const Dashboard = () => {
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
-  const [account, setAccount] = useState(null);
+  const [accountAddress, setAccountAddress] = useState(null);
   const [data, setData] = useState(""); // Example state to hold contract data
-
-  // const contractAddress = "0x728b5D181069baC9A5FEa09738A6D9Dc0fC543B4";
 
   useEffect(() => {
     const init = async () => {
-      const savedWallet = Cookies.get("wallet");
-      const savedContract = Cookies.get("contractAddress");
-      if (!savedWallet || !savedContract) {
-        // console.error("Missing wallet or contract address in cookies.");
+      const savedWalletAddress = Cookies.get("walletAddress");
+      // const savedContractAddress = Cookies.get("contractAddress");
+      if (!savedWalletAddress) {
+        console.error("Missing wallet or contract address in cookies.");
         return;
       }
       if (typeof window.ethereum !== "undefined") {
         const provider = new Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        const myContract = new ethers.Contract(
-          savedContract,
-          MyContractABI,
-          signer
-        );
+        // const myContract = new ethers.Contract(
+        //   savedContractAddress,
+        //   MyContractABI,
+        //   signer
+        // );
         setProvider(provider);
         setSigner(signer);
-        setContract(myContract);
-        setAccount(savedWallet);
+        // setContract(myContract);
+        setAccountAddress(savedWalletAddress);
       } else {
         // console.error("MetaMask is not installed!");
       }
@@ -111,16 +109,20 @@ export const Dashboard = () => {
           marginTop: "100px",
         }}
       >
+        <h1 className="text-2xl font-extrabold m-10">
+          Connected Account:
+          <span className="text-green-500"> {accountAddress}</span>
+        </h1>
         <h2>Upload Files</h2>
         <div style={{ display: "flex", gap: "20px" }}>
           <input
             type="file"
-            id="fileInput1"
+            id="fileInput"
             onChange={handleFileUpload}
             style={{ display: "none" }}
           />
           <label
-            htmlFor="fileInput1"
+            htmlFor="fileInput"
             style={{
               padding: "12px 24px",
               fontSize: "16px",
@@ -144,9 +146,8 @@ export const Dashboard = () => {
           >
             Upload File
           </label>
-          {ipfsHash && <p>IPFS Hash: {ipfsHash}</p>}
+          {/* {ipfsHash && <p>IPFS Hash: {ipfsHash}</p>} */}
         </div>
-        <p>Connected Account: {account}</p>
         <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
           <button
             onClick={readDataFromContract}

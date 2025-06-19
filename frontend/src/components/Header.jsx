@@ -1,7 +1,7 @@
-// frontend/src/components/Heading.jsx
+// frontend/src/components/Header.jsx
 
 import React from "react";
-export const Heading = () => {
+export const Header = () => {
   return (
     <h1
       className="text-5xl font-extrabold bg-gradient-to-r from-blue-500 via-green-500 to-blue-600

@@ -1,0 +1,21 @@
+# Install go-ipfs on Windows
+
+$ipfsUrl = "https://dist.ipfs.tech/go-ipfs/v0.35.0/go-ipfs_v0.35.0_windows-amd64.zip"
+$zipFile = "$env:USERPROFILE\Downloads\go-ipfs.zip"
+Invoke-WebRequest -Uri $ipfsUrl -OutFile $zipFile
+Expand-Archive -Path $zipFile -DestinationPath "$env:USERPROFILE\ipfs"
+cd "$env:USERPROFILE\ipfs\go-ipfs"
+.\install.ps1
+ipfs init
+Start-Process -NoNewWindow -FilePath "ipfs" -ArgumentList "daemon"
+
+
+
+# Install IPFS Cluster service on Windows
+$clusterUrl = "https://dist.ipfs.tech/ipfs-cluster-service/v1.1.4/ipfs-cluster-service_v1.1.4_windows-amd64.zip"
+$zipCluster = "$env:USERPROFILE\Downloads\ipfs-cluster-service.zip"
+Invoke-WebRequest -Uri $clusterUrl -OutFile $zipCluster
+Expand-Archive -Path $zipCluster -DestinationPath "$env:USERPROFILE\ipfs-cluster"
+cd "$env:USERPROFILE\ipfs-cluster\ipfs-cluster-service"
+.\ipfs-cluster-service.exe init
+.\ipfs-cluster-service.exe daemon

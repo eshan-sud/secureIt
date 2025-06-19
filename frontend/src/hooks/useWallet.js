@@ -18,7 +18,7 @@ const useWallet = () => {
         const signer = provider.getSigner();
         const address = await signer.getAddress();
         setWalletAddress(address);
-        Cookies.set("wallet", address, {
+        Cookies.set("walletAddress", address, {
           expires: COOKIE_DURATION_MINUTES / (60 * 24),
         });
         toast.success("Wallet connected");

@@ -1,8 +1,9 @@
 // backend/index.js
 
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
+const setupIPFS = require("./scripts/setupIPFS");
 // const { uploadFileToIPFS, getFileFromIPFS } = require("./ipfs");
 
 const app = express();
@@ -37,6 +38,12 @@ app.get("/api/health", (req, res) => {
 // });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Backend running at http://localhost:${PORT}`);
-});
+async function startServer() {
+  await setupIPFS(); // Run installation + start daemons on first startup
+
+  app.listen(PORT, () => {
+    console.log(`Backend running at http://localhost:${PORT}`);
+  });
+}
+
+startServer();

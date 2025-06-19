@@ -17,6 +17,7 @@ This project is a decentralized application designed to securely manage personal
 
 - **Frontend:** React.js, Ethers.js.
 - **Backend:** Node.js, Express.js, Solidity for Smart Contracts.
+- **IPFS:** goIpfs (v0.20.0), ipfsCluster (v0.16.2).
 - **Storage:** IPFS (Inter-Planetary File System), MongoDB for Metadata.
 - **Blockchain:** Ethereum with Smart Contracts (using Solidity), Web3.js for interaction.
 - **Database:** MongoDB for storing non-sensitive user data.
@@ -43,8 +44,9 @@ This project is a decentralized application designed to securely manage personal
 
 - [] IPFS File Upload & Metadata Storage
 
+  - [x] IPFS Cluster integration (local node)
   - [] Client-side file encryption placeholder (for future E2EE)
-  - [] Upload encrypted file to IPFS (Infura / Pinata / local node)
+  - [] Upload encrypted file to IPFS (local node)
   - [] Save IPFS hash + metadata in:
     - [] MongoDB (files collection)
     - [] Smart Contract (file hash → owner mapping)

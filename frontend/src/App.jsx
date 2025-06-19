@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 
-import { Heading } from "./components/Heading";
 import { Home } from "./components/Home";
 import { Dashboard } from "./components/Dashboard.jsx";
 import { Wallet } from "./components/Wallet.jsx";
@@ -14,8 +13,8 @@ import { Wallet } from "./components/Wallet.jsx";
 import useWallet from "./hooks/useWallet";
 
 function ProtectedRoute({ children }) {
-  const wallet = Cookies.get("wallet");
-  return wallet ? children : <Navigate to="/home" replace />;
+  const walletAddress = Cookies.get("walletAddress");
+  return walletAddress ? children : <Navigate to="/home" replace />;
 }
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
   return (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
-      {/* <Heading walletAddress={walletAddress} /> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/home" replace />} />
